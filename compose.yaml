@@ -60,6 +60,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PORT: ${APP_PORT}
       NODE_ENV: production
+      WILDBERRIES_API_KEY: ${WILDBERRIES_API_KEY}
+      GOOGLE_SHEET_IDS: ${GOOGLE_SHEET_IDS}
 
     ports:
       - ${APP_PORT}:${APP_PORT}

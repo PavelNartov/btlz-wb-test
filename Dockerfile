@@ -21,4 +21,5 @@ WORKDIR /app
 
 COPY --from=build /app/package*.json .
 COPY --from=deps-prod /app/node_modules ./node_modules
+COPY gcreds.json .
 COPY --from=build /app/dist ./dist
