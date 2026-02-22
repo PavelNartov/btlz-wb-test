@@ -10,7 +10,8 @@ function parseTariffValue(value: string): number | null {
 }
 
 export async function getTariffs(date: string): Promise<Tariff[]> {
-    const url = `https://common-api.wildberries.ru/api/v1/tariffs/box?date=${date}`;
+    const apiDate = date.slice(0, 10);
+    const url = `https://common-api.wildberries.ru/api/v1/tariffs/box?date=${apiDate}`;
 
     const response = await fetch(url, {
         headers: {

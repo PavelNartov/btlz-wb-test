@@ -15,7 +15,7 @@ export async function up(knex) {
         table.decimal('box_storage_base');
         table.integer('box_storage_coef_expr');
         table.decimal('box_storage_liter');
-        table.date('date').notNullable();
+        table.timestamp('date').notNullable();
         table.primary(['warehouse_name', 'date']);
     });
 }

@@ -4,7 +4,7 @@ import { updateGoogleSheets } from './services/google.js';
 
 async function fetchAndSaveTariffs() {
     try {
-        const date = new Date().toISOString().slice(0, 10);
+        const date = new Date().toISOString();
         console.log(`Fetching tariffs for ${date}`);
         const tariffs = await getTariffs(date);
         await saveTariffs(tariffs);
