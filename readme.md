@@ -1,56 +1,56 @@
-# WB Tariffs to Google Sheets
+# WB Tariffs to Google Sheets (Тарифы WB в Google Таблицы)
 
-This application fetches tariffs from the Wildberries API, stores them in a PostgreSQL database, and updates a Google Sheet with the tariff data.
+Это приложение получает тарифы из API Wildberries, сохраняет их в базе данных PostgreSQL и обновляет Google Таблицу с данными о тарифах.
 
-## Prerequisites
+## Предварительные требования
 
-- Docker and Docker Compose
-- Node.js and npm (for local development)
+-   Docker и Docker Compose
+-   Node.js и npm (для локальной разработки)
 
-## Getting Started
+## Начало работы
 
-1.  **Clone the repository:**
+1.  **Клонируйте репозиторий:**
     ```bash
     git clone <repository-url>
     cd <repository-name>
     ```
 
-2.  **Set up the environment variables and credentials:**
+2.  **Настройте переменные окружения и учетные данные:**
 
-    -   Create a `.env` file in the root of the project by copying the `example.env` file:
+    -   Создайте файл `.env` в корне проекта, скопировав файл `example.env`:
         ```bash
         cp example.env .env
         ```
-    -   Open the `.env` file and fill in the required values:
-        -   `WILDBERRIES_API_KEY`: Your API key for the Wildberries API.
-        -   `GOOGLE_SHEET_IDS`: A comma-separated list of Google Sheet IDs to update.
-    -   Place your Google Service Account JSON key file in the project's root directory and name it `gcreds.json`.
+    -   Откройте файл `.env` и заполните необходимые значения:
+        -   `WILDBERRIES_API_KEY`: Ваш API-ключ для API Wildberries.
+        -   `GOOGLE_SHEET_IDS`: Список ID Google Таблиц для обновления, разделенный запятыми.
+    -   Поместите ваш JSON-ключ сервисного аккаунта Google в корневой каталог проекта и назовите его `gcreds.json`.
 
-3.  **Run the application:**
+3.  **Запустите приложение:**
     ```bash
     docker compose up --build -d
     ```
 
-## How it works
+## Как это работает
 
-The application consists of two services:
+Приложение состоит из двух сервисов:
 
--   `postgres`: A PostgreSQL database to store the tariffs.
--   `app`: A Node.js application that:
-    -   Runs database migrations on startup.
-    -   Starts a scheduler that runs every hour.
-    -   The scheduler fetches tariffs from the Wildberries API for the current day.
-    -   The fetched tariffs are saved to the database (upserting on conflict).
-    -   The scheduler then updates the Google Sheets with the latest tariff data from the database.
+-   `postgres`: База данных PostgreSQL для хранения тарифов.
+-   `app`: Приложение Node.js, которое:
+    -   Выполняет миграции базы данных при запуске.
+    -   Запускает планировщик, который работает каждый час.
+    -   Планировщик получает тарифы из API Wildberries за текущий день.
+    -   Полученные тарифы сохраняются в базу данных (с обновлением при конфликте).
+    -   Затем планировщик обновляет Google Таблицы последними данными о тарифах из базы данных.
 
-## Google Sheets Integration
+## Интеграция с Google Sheets
 
-To enable the Google Sheets integration, you need to:
+Для включения интеграции с Google Sheets вам необходимо:
 
-1.  **Create a Google Service Account** and download the JSON key file.
-2.  **Rename the downloaded file to `gcreds.json`** and place it in the root of the project.
-3.  **Enable the Google Sheets API** for your project in the Google Cloud Console.
-4.  **Share your Google Sheet** with the service account's email address, giving it "Editor" permissions.
-5.  **Set the `GOOGLE_SHEET_IDS` environment variable** in the `.env` file.
+1.  **Создать сервисный аккаунт Google** и скачать JSON-ключ.
+2.  **Переименовать скачанный файл в `gcreds.json`** и поместить его в корень проекта.
+3.  **Включить Google Sheets API** для вашего проекта в Google Cloud Console.
+4.  **Поделиться вашей Google Таблицей** с адресом электронной почты сервисного аккаунта, предоставив ему права "Редактора".
+5.  **Установить переменную окружения `GOOGLE_SHEET_IDS`** в файле `.env`.
 
-The application will update a sheet named `stocks_coefs` in each of the provided Google Sheet IDs.
+Приложение будет обновлять лист с именем `stocks_coefs` в каждой из указанных Google Таблиц.
